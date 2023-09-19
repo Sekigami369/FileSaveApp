@@ -46,7 +46,6 @@ namespace FileSaveApp
             {
                 MessageBox.Show("ƒGƒ‰[ˆ—" + ex.Message);
             }
-
         }
     }
 }
