@@ -23,14 +23,20 @@ namespace FileSaveApp
         private void button1_Click(object sender, EventArgs e)
         {
             string url = textBox1.Text;
+
+            //ファイルがすでにある場合はここに値を入れる
+            //もしくは完全にファイルを新規製作したものに保存するようにするかも
             string file_Path = "";
 
             try
             {
                 using(WebClient client = new WebClient())
                 {
-
+                    string htmlText = client.DownloadString(url);
                 }
+            }catch(Exception ex)
+            {
+                MessageBox.Show("エラー処理" + ex.Message);
             }
 
         }
