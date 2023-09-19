@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sekigami\\source\\repos\\FileSaveApp\\FileSaveApp.csproj": {}
+    "C:\\Users\\skgmy\\source\\repos\\FileSaveApp\\FileSaveApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sekigami\\source\\repos\\FileSaveApp\\FileSaveApp.csproj": {
+    "C:\\Users\\skgmy\\source\\repos\\FileSaveApp\\FileSaveApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sekigami\\source\\repos\\FileSaveApp\\FileSaveApp.csproj",
+        "projectUniqueName": "C:\\Users\\skgmy\\source\\repos\\FileSaveApp\\FileSaveApp.csproj",
         "projectName": "FileSaveApp",
-        "projectPath": "C:\\Users\\sekigami\\source\\repos\\FileSaveApp\\FileSaveApp.csproj",
-        "packagesPath": "C:\\Users\\sekigami\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sekigami\\source\\repos\\FileSaveApp\\obj\\",
+        "projectPath": "C:\\Users\\skgmy\\source\\repos\\FileSaveApp\\FileSaveApp.csproj",
+        "packagesPath": "C:\\Users\\skgmy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\skgmy\\source\\repos\\FileSaveApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sekigami\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\skgmy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

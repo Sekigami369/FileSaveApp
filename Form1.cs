@@ -2,7 +2,7 @@ using HtmlAgilityPack;
 using System.Net;
 using System.IO;
 using System;
-
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace FileSaveApp
 {
@@ -33,6 +33,14 @@ namespace FileSaveApp
                 using(WebClient client = new WebClient())
                 {
                     string htmlText = client.DownloadString(url);
+
+                    //à»â∫ÇÃèàóùÇÇÊÇ≠í≤Ç◊ÇÈ
+                    HtmlDocument htmlDoc = new HtmlDocument();
+                    htmlDoc .LoadHtml(htmlText);
+
+                    string textData = htmlDoc.DocumentNode.InnerText;
+
+                    File.WriteAllText(file_Path, textData);
                 }
             }catch(Exception ex)
             {
