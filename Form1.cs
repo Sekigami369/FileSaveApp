@@ -20,9 +20,26 @@ namespace FileSaveApp
 
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string url = textBox1.Text;
+            string htmlTag = textBox2.Text;
+            string selectTag = "//" + htmlTag;
 
             //ファイルがすでにある場合はここに値を入れる
             //もしくは完全にファイルを新規製作したものに保存するようにするかも
@@ -30,19 +47,34 @@ namespace FileSaveApp
 
             try
             {
-                using(WebClient client = new WebClient())
+                using (WebClient client = new WebClient())
                 {
-                    string htmlText = client.DownloadString(url);
+                    //htmlContentにはHTMLデータが格納されている
+                    string htmlContent = client.DownloadString(url);
 
-                    //以下の処理をよく調べる
+                    //HtmlDocumentはHTMLを解析と操作を行う
                     HtmlDocument htmlDoc = new HtmlDocument();
-                    htmlDoc .LoadHtml(htmlText);
 
-                    string textData = htmlDoc.DocumentNode.InnerText;
+                    //LoadHtmlはHTMLを解析してhtmlDoc にDOMツリーを構築する
+                    htmlDoc.LoadHtml(htmlContent);
 
-                    File.WriteAllText(file_Path, textData);
+                    HtmlNode htmlNode = htmlDoc.DocumentNode;
+
+                    //<body>の内容だけ抽出する
+                    HtmlNodeCollection tagNodes = htmlNode.SelectNodes(selectTag);
+
+                    if (tagNodes != null)
+                    {
+                        foreach (HtmlNode tagNode in tagNodes)
+                        {
+                            //InnerTextプロパティはタグを除去してくれる
+                            string tagText = tagNode.InnerText;
+                            File.WriteAllText(file_Path, tagText);
+                        }
+                    }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("エラー処理" + ex.Message);
             }
