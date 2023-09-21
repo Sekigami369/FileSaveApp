@@ -8,7 +8,8 @@ namespace FileSaveApp
 {
     public partial class Form1 : Form
     {
-
+        string tagText;
+        string file_Path = "D:\\WebScrapingForC#1";
 
         public Form1()
         {
@@ -38,12 +39,14 @@ namespace FileSaveApp
         private void button1_Click(object sender, EventArgs e)
         {
             string url = textBox1.Text;
+
+
             string htmlTag = textBox2.Text;
             string selectTag = "//" + htmlTag;
 
             //ファイルがすでにある場合はここに値を入れる
             //もしくは完全にファイルを新規製作したものに保存するようにするかも
-            string file_Path = "";
+           
 
             try
             {
@@ -68,8 +71,8 @@ namespace FileSaveApp
                         foreach (HtmlNode tagNode in tagNodes)
                         {
                             //InnerTextプロパティはタグを除去してくれる
-                            string tagText = tagNode.InnerText;
-                            File.WriteAllText(file_Path, tagText);
+                            tagText = tagNode.InnerText;
+
                         }
                     }
                 }
@@ -77,6 +80,19 @@ namespace FileSaveApp
             catch (Exception ex)
             {
                 MessageBox.Show("エラー処理" + ex.Message);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            if(!File.Exists(file_Path))
+            {
+
+            }
+            using (StreamWriter writer = File.CreateText(file_Path))
+            {
+                writer.WriteLine(tagText);
             }
         }
     }
