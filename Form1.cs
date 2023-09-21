@@ -9,9 +9,13 @@ namespace FileSaveApp
     public partial class Form1 : Form
     {
         string tagText;
-        string file_Path = "D:\\WebScrapingForC#1";
+        string basePath = "D:\\WebScrapingForC#1";
+        string fileExtension = ".txt";
+        string file_Path;
+    
 
-        public Form1()
+
+    public Form1()
         {
             InitializeComponent();
         }
@@ -83,17 +87,46 @@ namespace FileSaveApp
             }
         }
 
+
         private void button2_Click(object sender, EventArgs e)
         {
+            file_Path = GenerateNewFileName(basePath, fileExtension);
+            CreateNewFile(file_Path);
+        }
 
-            if(!File.Exists(file_Path))
-            {
 
-            }
-            using (StreamWriter writer = File.CreateText(file_Path))
+
+        private void CreateNewFile(string file_Path)
+        {
+            try
             {
-                writer.WriteLine(tagText);
+                using (StreamWriter writer = File.CreateText(file_Path))
+                {
+                    string dataToWrite = tagText;
+                    writer.WriteLine(dataToWrite);
+
+                }
+                MessageBox.Show($"新しいファイルに保存されました：{file_Path}");
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"エラーが出ました、ファイルは生成されていません。：{ex.Message}");
+            }
+        }
+
+
+        private string GenerateNewFileName(string basePath, string fileExtension)
+        {
+            int count = 0;
+            string file_Path = $"{basePath}{count}{fileExtension}";
+
+            while(File.Exists(file_Path))
+            {
+                count++;
+                file_Path = $"{basePath}{count}{fileExtension}";
+            }
+            
+            return file_Path;
         }
     }
 }
