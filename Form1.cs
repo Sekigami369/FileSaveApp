@@ -3,13 +3,14 @@ using System.Net;
 using System.IO;
 using System;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using System.Text.RegularExpressions;
 
 namespace FileSaveApp
 {
     public partial class Form1 : Form
     {
         string tagText;
-        string basePath = "D:\\WebScrapingForC#1";
+        string basePath = "D:\\WebScrapingForC#";
         string fileExtension = ".txt";
         string file_Path;
     
@@ -43,31 +44,26 @@ namespace FileSaveApp
         private void button1_Click(object sender, EventArgs e)
         {
             string url = textBox1.Text;
-
-
             string htmlTag = textBox2.Text;
             string selectTag = "//" + htmlTag;
-
-            //ファイルがすでにある場合はここに値を入れる
-            //もしくは完全にファイルを新規製作したものに保存するようにするかも
-           
+          
 
             try
             {
                 using (WebClient client = new WebClient())
                 {
-                    //htmlContentにはHTMLデータが格納されている
+                            //htmlContentにはHTMLデータが格納されている
                     string htmlContent = client.DownloadString(url);
 
-                    //HtmlDocumentはHTMLを解析と操作を行う
+                                                //HtmlDocumentはHTMLを解析と操作を行う
                     HtmlDocument htmlDoc = new HtmlDocument();
 
-                    //LoadHtmlはHTMLを解析してhtmlDoc にDOMツリーを構築する
+                            //LoadHtmlはHTMLを解析してhtmlDoc にDOMツリーを構築する
                     htmlDoc.LoadHtml(htmlContent);
 
                     HtmlNode htmlNode = htmlDoc.DocumentNode;
 
-                    //<body>の内容だけ抽出する
+                                        //指定タグの内容だけ抽出する
                     HtmlNodeCollection tagNodes = htmlNode.SelectNodes(selectTag);
 
                     if (tagNodes != null)
@@ -75,8 +71,8 @@ namespace FileSaveApp
                         foreach (HtmlNode tagNode in tagNodes)
                         {
                             //InnerTextプロパティはタグを除去してくれる
-                            tagText = tagNode.InnerText;
-
+                            tagText = Regex.Replace(tagNode.InnerText, "<[^>]*?>", "").Trim(); ;
+                           
                         }
                     }
                 }
@@ -84,6 +80,11 @@ namespace FileSaveApp
             catch (Exception ex)
             {
                 MessageBox.Show("エラー処理" + ex.Message);
+            }
+
+            if(tagText != null )
+            {
+                MessageBox.Show("読み込みが完了しました");
             }
         }
 
