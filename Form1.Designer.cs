@@ -46,11 +46,11 @@
             // 
             // button1
             // 
-            button1.Location = new Point(416, 118);
+            button1.Location = new Point(98, 198);
             button1.Name = "button1";
-            button1.Size = new Size(118, 23);
+            button1.Size = new Size(138, 23);
             button1.TabIndex = 1;
-            button1.Text = "読み込み開始";
+            button1.Text = "解析＆プレビュー";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -84,11 +84,11 @@
             // 
             // button2
             // 
-            button2.Location = new Point(416, 229);
+            button2.Location = new Point(297, 198);
             button2.Name = "button2";
             button2.Size = new Size(118, 23);
             button2.TabIndex = 5;
-            button2.Text = "書き込み実行";
+            button2.Text = "保存";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -96,7 +96,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(686, 450);
+            ClientSize = new Size(525, 261);
             Controls.Add(button2);
             Controls.Add(textBox2);
             Controls.Add(label2);

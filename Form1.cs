@@ -9,14 +9,14 @@ namespace FileSaveApp
 {
     public partial class Form1 : Form
     {
-        string tagText;
+        public string tagText;
         string basePath = "D:\\WebScrapingForC#";
         string fileExtension = ".txt";
         string file_Path;
-    
 
 
-    public Form1()
+
+        public Form1()
         {
             InitializeComponent();
         }
@@ -46,24 +46,24 @@ namespace FileSaveApp
             string url = textBox1.Text;
             string htmlTag = textBox2.Text;
             string selectTag = "//" + htmlTag;
-          
+
 
             try
             {
                 using (WebClient client = new WebClient())
                 {
-                            //htmlContentにはHTMLデータが格納されている
+                    //htmlContentにはHTMLデータが格納されている
                     string htmlContent = client.DownloadString(url);
 
-                                                //HtmlDocumentはHTMLを解析と操作を行う
+                    //HtmlDocumentはHTMLを解析と操作を行う
                     HtmlDocument htmlDoc = new HtmlDocument();
 
-                            //LoadHtmlはHTMLを解析してhtmlDoc にDOMツリーを構築する
+                    //LoadHtmlはHTMLを解析してhtmlDoc にDOMツリーを構築する
                     htmlDoc.LoadHtml(htmlContent);
 
                     HtmlNode htmlNode = htmlDoc.DocumentNode;
 
-                                        //指定タグの内容だけ抽出する
+                    //指定タグの内容だけ抽出する
                     HtmlNodeCollection tagNodes = htmlNode.SelectNodes(selectTag);
 
                     if (tagNodes != null)
@@ -72,7 +72,7 @@ namespace FileSaveApp
                         {
                             //InnerTextプロパティはタグを除去してくれる
                             tagText = Regex.Replace(tagNode.InnerText, "<[^>]*?>", "").Trim(); ;
-                           
+
                         }
                     }
                 }
@@ -82,9 +82,14 @@ namespace FileSaveApp
                 MessageBox.Show("エラー処理" + ex.Message);
             }
 
-            if(tagText != null )
+            if (tagText != null)
             {
-                MessageBox.Show("読み込みが完了しました");
+                DialogResult result = MessageBox.Show("読み込みが完了しました、プレビューを表示しますか？", "選択", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    PreViewForm preViewForm = new PreViewForm(this);
+                    preViewForm.Show();
+                }
             }
         }
 
@@ -109,7 +114,7 @@ namespace FileSaveApp
                 }
                 MessageBox.Show($"新しいファイルに保存されました：{file_Path}");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show($"エラーが出ました、ファイルは生成されていません。：{ex.Message}");
             }
@@ -121,20 +126,14 @@ namespace FileSaveApp
             int count = 0;
             string file_Path = $"{basePath}{count}{fileExtension}";
 
-            while(File.Exists(file_Path))
+            while (File.Exists(file_Path))
             {
                 count++;
                 file_Path = $"{basePath}{count}{fileExtension}";
             }
-            
+
             return file_Path;
         }
     }
 }
 
-/*指定したURLのテキストを保存して
- * 自動でファイルを生成して
- * 自動でファイルに保存する
- * タグを指定して特定のテキストのみ保存する機能も
- * 作れたら追加する
- */
